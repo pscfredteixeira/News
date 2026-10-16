@@ -219,7 +219,7 @@
   <main class="container">
     <section class="edition">
       <div><div class="eyebrow"><span class="red-dot"></span> EDIÇÃO ATUALIZADA</div><h2>A capa de hoje <span id="edition-subtitle" style="font-family:Georgia;font-style:italic;font-weight:400">— sexta-feira, 16 de outubro</span></h2></div>
-      <div class="edition-right micro">50 NOTÍCIAS SELECIONADAS <br> 10 EDITORIAS</div>
+      <div class="edition-right micro">50 NOTÍCIAS DA EDIÇÃO <br> COM FONTES E CRÉDITOS</div>
     </section>
     <section class="lead-grid" aria-label="Manchetes de demonstração">
       <article class="story-action" id="lead-primary" tabindex="0"></article>
@@ -256,7 +256,7 @@
   </main>
   <footer class="footer container">
     <div><strong>NEWS.</strong><br>O jornal do seu dia.</div>
-    <div>Edição atualizada em 16/10/2026 às 20h46 (Brasília).<br>Fotos creditadas quando reutilizáveis; outras pautas têm artes editoriais.</div>
+    <div><span id="footer-edition">Edição atualizada em 16/10/2026, 20h46 (Brasília).</span><br>Fotos creditadas quando reutilizáveis; outras pautas têm artes editoriais.</div>
     <div class="micro">UM JORNAL PARA LER DEVAGAR.</div>
   </footer>
   <dialog id="reader" aria-label="Leitura da matéria">
@@ -306,7 +306,7 @@
       $('lead-primary').dataset.open=a.id;
       $('lead-middle').innerHTML=(b?openable(b,img(b,'eager')+categoryLabel(b)+'<h3>'+esc(b.title)+'</h3><p>'+esc(b.summary)+'</p><div class="byline">'+minLabel(b)+'</div>','mid-feature'):'')+(c?openable(c,categoryLabel(c)+'<h3>'+esc(c.title)+'</h3><p class="byline">'+minLabel(c)+'</p>','mid-second'):'');
       $('lead-rail').innerHTML=items.slice(10,15).map((a,i)=>'<div class="rail-item story-action" role="button" tabindex="0" data-open="'+a.id+'"><span>0'+(i+1)+'</span><strong>'+esc(a.title)+'</strong></div>').join('');
-      $('editors-pick').innerHTML=[47,43,50].map(getById).filter(Boolean).map(a=>openable(a,img(a)+'<div><span class="micro">'+esc(a.category)+'</span><h3>'+esc(a.title)+'</h3><div class="byline">'+minLabel(a)+'</div></div>','pick')).join('');
+      $('editors-pick').innerHTML=['Cultura','Ciência','Televisão'].map(cat=>items.find(a=>a.category===cat)).filter(Boolean).map(a=>openable(a,img(a)+'<div><span class="micro">'+esc(a.category)+'</span><h3>'+esc(a.title)+'</h3><div class="byline">'+minLabel(a)+'</div></div>','pick')).join('');
     }
     function filtered(){
       const q=query.toLocaleLowerCase('pt-BR').trim();
@@ -383,9 +383,13 @@
     $('how-button').addEventListener('click',()=>alert('Nas próximas edições, basta pedir ao ChatGPT: “Atualize o NEWS com as 50 notícias mais importantes de hoje”. O conteúdo publicado no GitHub será substituído por uma nova edição, com textos próprios, fontes e links. O site não se atualiza sozinho.'));
     try{if(localStorage.getItem('news-theme')==='dark')document.body.classList.add('dark');}catch(_){}
     if(!source.demo){
-      $('edition-date').textContent='16 DE OUTUBRO DE 2026';
-      $('edition-subtitle').textContent='— sexta-feira, 16 de outubro';
-      $('edition-announce').textContent='EDIÇÃO DE 16/10/2026 · ÚLTIMAS 24 HORAS · 50 NOTÍCIAS';
+      const firstDate=(source.articles?.[0]?.date||'').match(/^\d{4}-\d{2}-\d{2}$/)?.[0];
+      const dt=firstDate ? new Date(firstDate+'T12:00:00Z') : null;
+      const readable=dt ? new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'}).format(dt) : source.date;
+      $('edition-date').textContent=String(source.date||'EDIÇÃO ATUAL').toUpperCase();
+      $('edition-subtitle').textContent='— '+readable;
+      $('edition-announce').textContent='EDIÇÃO '+(dt?new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'}).format(dt):source.date)+' · ÚLTIMAS 24 HORAS · '+items.length+' NOTÍCIAS';
+      $('footer-edition').textContent=source.publishedLabel||source.date||'Edição atual';
       document.title='NEWS — '+(source.date||'Edição atual');
     }
     renderNav();renderCover();renderList();
