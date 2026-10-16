@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f3ec">
-  <meta name="description" content="NEWS — Um jornal para ler devagar. Edição de demonstração com 50 pautas, editorias e experiência de leitura.">
+  <meta name="description" content="NEWS — Um jornal para ler devagar. 50 notícias com textos editoriais originais e links para fontes jornalísticas.">
   <meta property="og:title" content="NEWS — O jornal do seu dia">
   <meta property="og:description" content="Uma experiência editorial em formato de jornal, para acompanhar Brasil e mundo.">
-  <title>NEWS — Edição zero</title>
+  <title>NEWS — 16 de outubro de 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Franklin:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -135,7 +135,7 @@
   </style>
 </head>
 <body>
-  <div class="announce">EDIÇÃO ZERO · PROTÓTIPO EDITORIAL · AS PAUTAS A SEGUIR SÃO ILUSTRATIVAS, NÃO NOTÍCIAS ATUAIS</div>
+  <div class="announce" id="edition-announce">EDIÇÃO DE 16 DE OUTUBRO DE 2026 · 50 NOTÍCIAS · TEXTOS EDITORIAIS ORIGINAIS</div>
   <header class="container" id="topo">
     <div class="topline">
       <div class="top-left micro"><span class="red-dot"></span> INDEPENDENTE <span class="desktop-only"> &nbsp; / &nbsp; PARA LER COM CALMA</span></div>
@@ -160,8 +160,8 @@
   </div>
   <main class="container">
     <section class="edition">
-      <div><div class="eyebrow"><span class="red-dot"></span> PRIMEIRA EDIÇÃO</div><h2>A capa de hoje <span style="font-family:Georgia;font-style:italic;font-weight:400">— edição zero</span></h2></div>
-      <div class="edition-right micro">50 MATÉRIAS DEMONSTRATIVAS <br> 10 EDITORIAS</div>
+      <div><div class="eyebrow"><span class="red-dot"></span> PRIMEIRA EDIÇÃO</div><h2>A capa de hoje <span id="edition-subtitle" style="font-family:Georgia;font-style:italic;font-weight:400">— sexta-feira, 16 de outubro</span></h2></div>
+      <div class="edition-right micro">50 NOTÍCIAS SELECIONADAS <br> 10 EDITORIAS</div>
     </section>
     <section class="lead-grid" aria-label="Manchetes de demonstração">
       <article class="story-action" id="lead-primary" tabindex="0"></article>
@@ -198,7 +198,7 @@
   </main>
   <footer class="footer container">
     <div><strong>NEWS.</strong><br>O jornal do seu dia.</div>
-    <div>Edição zero — protótipo para avaliação de design.<br>Todos os textos e chamadas são demonstrativos.</div>
+    <div>Edição de 16 de outubro de 2026.<br>Textos autorais de síntese jornalística com fontes identificadas.</div>
     <div class="micro">UM JORNAL PARA LER DEVAGAR.</div>
   </footer>
   <dialog id="reader" aria-label="Leitura da matéria">
@@ -224,7 +224,7 @@
     const $ = id => document.getElementById(id);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const safeUrl = url => /^https:\/\//i.test(String(url||'')) ? esc(url) : '';
-    const demoText = 'DEMONSTRAÇÃO · NÃO É NOTÍCIA ATUAL';
+    const demoText = source.demo ? 'DEMONSTRAÇÃO · NÃO É NOTÍCIA ATUAL' : 'NEWS · SÍNTESE EDITORIAL COM FONTE';
     let active = 'Todas', query = '', visible = 12, currentArticle = null;
     let saved = new Set();
     try { saved = new Set(JSON.parse(localStorage.getItem('news-saved-v1') || '[]').map(Number)); } catch (_) {}
@@ -268,7 +268,9 @@
     function articleHTML(a){
       const url=safeUrl(a.sourceUrl);
       const paras=Array.isArray(a.body)?a.body:[a.summary];
-      return '<article class="article"><div class="article-label">'+esc(a.category)+'</div><h2>'+esc(a.title)+'</h2><p class="article-lede">'+esc(a.summary)+'</p><div class="author">'+(source.demo?'EDIÇÃO ZERO · TEXTO ILUSTRATIVO':'NEWS · '+esc(a.date||source.date||''))+' &nbsp;·&nbsp; '+minLabel(a)+'</div><figure>'+img(a,'eager')+'<figcaption>Imagem ilustrativa. '+(source.demo?'Esta edição demonstra apenas o funcionamento do jornal.':'Consulte a origem e os créditos da fotografia.')+'</figcaption></figure>'+(source.demo?'<div class="notice"><strong>Conteúdo de demonstração.</strong> Esta é uma pauta editorial fictícia criada para testar o visual e a experiência de leitura. Não representa uma notícia apurada nem uma matéria publicada por outro veículo.</div>':'')+'<div class="article-body">'+paras.map(p=>'<p>'+esc(p)+'</p>').join('')+'</div><div class="article-end">'+(url?'<p>Fonte: <a href="'+url+'" target="_blank" rel="noopener noreferrer">Leia a publicação original ↗</a></p>':'')+'<p>NEWS. O jornal do seu dia. '+(source.demo?'Exemplar experimental.':'Informação com contexto e fontes.')+'</p><button type="button" class="backtop" id="back-article-top">↑ Voltar ao começo</button></div></article>';
+      const bodyParas=paras.length>1&&paras[0]===a.summary?paras.slice(1):paras;
+      const origin=a.sourceName ? esc(a.sourceName) : 'Fonte jornalística';
+      return '<article class="article"><div class="article-label">'+esc(a.category)+'</div><h2>'+esc(a.title)+'</h2><p class="article-lede">'+esc(a.summary)+'</p><div class="author">'+(source.demo?'EDIÇÃO ZERO · TEXTO ILUSTRATIVO':'NEWS · '+esc(a.date||source.date||''))+' &nbsp;·&nbsp; '+minLabel(a)+'</div><figure>'+img(a,'eager')+'<figcaption>Imagem ilustrativa. '+(source.demo?'Esta edição demonstra apenas o funcionamento do jornal.':'Consulte a origem e os créditos da fotografia.')+'</figcaption></figure>'+(source.demo?'<div class="notice"><strong>Conteúdo de demonstração.</strong> Esta é uma pauta editorial fictícia criada para testar o visual e a experiência de leitura. Não representa uma notícia apurada nem uma matéria publicada por outro veículo.</div>':'')+'<div class="article-body">'+bodyParas.map(p=>'<p>'+esc(p)+'</p>').join('')+'</div><div class="article-end">'+(url?'<p>Fonte consultada: <a href="'+url+'" target="_blank" rel="noopener noreferrer">'+origin+' — abrir reportagem de referência ↗</a></p>':'')+'<p>NEWS. O jornal do seu dia. '+(source.demo?'Exemplar experimental.':'Esta é uma síntese original baseada nas informações da fonte indicada, não uma reprodução integral da reportagem.')+'</p><button type="button" class="backtop" id="back-article-top">↑ Voltar ao começo</button></div></article>';
     }
     function openArticle(id){
       const a=getById(id);if(!a)return;
@@ -319,6 +321,12 @@
     });
     $('how-button').addEventListener('click',()=>alert('Nas próximas edições, basta pedir ao ChatGPT: “Atualize o NEWS com as 50 notícias mais importantes de hoje”. O conteúdo publicado no GitHub será substituído por uma nova edição, com textos próprios, fontes e links. O site não se atualiza sozinho.'));
     try{if(localStorage.getItem('news-theme')==='dark')document.body.classList.add('dark');}catch(_){}
+    if(!source.demo){
+      $('edition-date').textContent='16 DE OUTUBRO DE 2026';
+      $('edition-subtitle').textContent='— sexta-feira, 16 de outubro';
+      $('edition-announce').textContent='EDIÇÃO DE 16 DE OUTUBRO DE 2026 · 50 NOTÍCIAS · TEXTOS EDITORIAIS ORIGINAIS';
+      document.title='NEWS — '+(source.date||'Edição atual');
+    }
     renderNav();renderCover();renderList();
     const hash=location.hash.match(/^#materia-(\d+)$/);
     if(hash)openArticle(hash[1]);
