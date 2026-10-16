@@ -1,59 +1,65 @@
 # NEWS. — O jornal do seu dia
 
-Protótipo de um jornal digital responsivo, concebido para receber **edições sob demanda** produzidas com curadoria assistida.
+Jornal digital responsivo com **50 notícias do Brasil e do mundo**, publicado no GitHub. Seu conteúdo é atualizado **somente quando solicitado pelo usuário no ChatGPT**, e não automaticamente.
 
-## Versão atual: edição zero
-- Capa editorial com manchete, destaques, fotografias e editorias.
-- **50 artigos demonstrativos** (10 editorias, cinco pautas por editoria).
-- Leitor interno com texto completo de demonstração, ajuste da fonte e barra de progresso.
-- Busca por títulos e assuntos, filtros por editoria e botão para carregar mais.
-- Favoritos armazenados somente no navegador em uso.
-- Modo noturno, layout adaptado para celular.
-- HTML, CSS e JavaScript puros, sem backend.
+## Edição publicada
 
-**Atenção:** a edição zero não é um boletim de notícias reais. Os títulos, chamadas e textos são exclusivamente ilustrativos e não devem ser interpretados como fatos apurados.
+**16 de outubro de 2026** — 50 notícias reunidas em dez editorias: Brasil, Mundo, Política, Economia, Tecnologia, Saúde, Ciência, Esportes, Cultura e Televisão.
 
-## Publicar com GitHub Pages
-1. Abra o repositório **News** → **Settings** → **Pages**.
-2. Na seção **Build and deployment**, selecione **Deploy from a branch**.
-3. Escolha a branch **main**, pasta **/(root)**, e clique em **Save**.
-4. Após a publicação, o endereço esperado é **https://pscfredteixeira.github.io/News/**.
+As notícias foram selecionadas de fontes identificadas, incluindo Agência Brasil, Reuters, Associated Press, Folha, UOL e The Guardian. Incluem fatos publicados entre 10 e 16 de outubro, com predominância de notícias de 15 e 16 de outubro, por relevância e contexto.
 
-Como o site usa arquivos estáticos, novas alterações na branch `main` serão publicadas pelo GitHub Pages sem serviço externo.
+**Os textos do NEWS são sínteses autorais editoriais, e não reproduções integrais dos veículos de origem.** Cada notícia oferece link direto para a fonte consultada, a data dessa publicação e um resumo contextualizado. Imagens de banco de imagens são **meramente ilustrativas**, sem representar os eventos noticiados.
+
+## Estrutura da aplicação
+
+- `index.html`: capa editorial, CSS responsivo, filtros por editoria, busca, leitor e modo noturno.
+- `data.js`: edição vigente com 50 títulos, resumos, textos editoriais originais, data de origem, fonte e URL.
+- `README.md`: documentação e procedimento editorial.
+
+A aplicação suporta textos de leitura em tela inteira, aumento e redução da fonte, barra de progresso e matérias favoritas guardadas localmente no dispositivo.
+
+## Publicação (GitHub Pages)
+
+O código está na branch `main`. Para publicar:
+1. Acesse **Settings → Pages** neste repositório.
+2. Em **Build and deployment**, escolha **Deploy from a branch**.
+3. Selecione **main** e **/(root)** e salve.
+4. Acesse **https://pscfredteixeira.github.io/News/** quando o GitHub Pages indicar que foi publicado.
 
 ## Atualização sob demanda
-Quando quiser a próxima edição, peça ao ChatGPT: **"Atualize o NEWS com as 50 notícias mais relevantes de hoje e publique no GitHub."**
 
-O fluxo editorial previsto é:
-1. Pesquisar notícias atuais em veículos identificados, cobrindo Brasil e mundo, e verificar data, autoria e relevância.
-2. Escolher até 50 pautas, reduzir duplicações e conferir diferentes fontes.
-3. Redigir textos **originais** de contextualização e síntese jornalística, com referência e link da reportagem original.
-4. Atualizar o arquivo `data.js` com data, título, resumo, editoria, imagem licenciada/créditos, corpo do texto e URL da fonte.
-5. Fazer commit no GitHub, mantendo `index.html` como modelo de design.
+Peça em uma conversa com o ChatGPT: **“Atualize o NEWS com as 50 principais notícias de hoje e publique no meu repositório.”**
 
-**Direitos autorais:** não republicar integralmente artigos protegidos de outros veículos sem licença/autorização. O site deve usar textos originais baseados em apuração e fontes, com links para a matéria original. Uma eventual licença ou publicação em domínio público permite regras diferentes.
+Procedimento editorial:
+1. Consultar fontes recentes e confiáveis, confirmar datas e notícias.
+2. Priorizar relevância e diversidade de assuntos, separar acontecimentos de opinião, evitar duplicidades.
+3. Redigir textos originais de contextualização, com atribuição e links às reportagens originais.
+4. Preferir fotografias com licença compatível ou imagens de ambientação claramente identificadas como ilustrativas.
+5. Atualizar apenas o arquivo de dados; preservar o layout e as funcionalidades.
+6. Conferir as 50 notícias, metadados e sintaxe antes do commit.
 
-## Organização
-- `index.html`: apresentação, estilos e interações.
-- `data.js`: conteúdo da edição. Substituir a lista de artigos para cada nova edição.
-- `README.md`: documentação.
+Não reproduzir na íntegra textos jornalísticos ou fotografias protegidos por direitos autorais sem licença ou autorização. Informações publicadas são um retrato da data de atualização, não um acompanhamento em tempo real. O jornal não coleta dados de notícias automaticamente.
 
-### Estrutura dos itens em data.js
+## Formato de artigo
+
 ```js
 {
   id: 1,
   category: "Brasil",
-  title: "Título verificado",
-  summary: "Síntese editorial original.",
-  image: "https://imagem-licenciada...",
-  imageAlt: "Descrição da fotografia.",
-  readMinutes: 5,
+  title: "Título original do NEWS",
+  summary: "Abertura original sobre fato verificado.",
+  image: "https://...",
+  imageAlt: "Imagem ilustrativa da editoria Brasil",
+  readMinutes: 3,
   date: "2026-10-16",
-  sourceUrl: "https://link-direto-para-a-fonte...",
-  body: ["Primeiro parágrafo original.", "Segundo parágrafo original."]
+  sourceName: "Veículo consultado",
+  sourceUrl: "https://fonte-original...",
+  body: [
+    "Parágrafo original de contextualização.",
+    "Parágrafo original com fatos atribuídos.",
+    "Parágrafo sobre consequências e próximos desdobramentos."
+  ]
 }
 ```
-Ao deixar `demo: false`, a interface trata a edição como conteúdo real; a verificação editorial das notícias continua sendo indispensável.
 
----
-Projeto experimental. Publicação e atualização apenas quando solicitadas; não há coleta automática de notícias.
+**Observação editorial:** a leitura de notícias históricas no arquivo é uma funcionalidade futura, não implementada ainda. A edição atual substitui a anterior, mantendo sempre o jornal mais recente disponível.
