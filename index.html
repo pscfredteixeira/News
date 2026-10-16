@@ -168,11 +168,32 @@
       .article-lede{font-size:17px}
       .reader-tools button{padding:7px 8px}
     }
+    /* Fotografias jornalísticas creditadas; alternativa gráfica sem fotos de arquivo enganosas. */
+    .media-frame{position:relative;display:block;width:100%;aspect-ratio:1.62;margin:0 0 13px;overflow:hidden;background:var(--soft);border:1px solid var(--rule)}
+    .media-frame img{display:block;width:100%;height:100%;object-fit:cover;margin:0;filter:none}
+    .photo-attribution{position:absolute;right:0;bottom:0;max-width:95%;background:rgba(18,18,18,.77);color:white;padding:5px 7px;font:700 9px/1.4 'Libre Franklin',sans-serif;text-align:right}
+    .photo-fallback{display:none}
+    .photo-failed .photo-attribution{display:none}
+    .photo-failed .photo-fallback{display:flex;align-items:center;justify-content:center;position:absolute;inset:0;font:900 55px 'Playfair Display',serif;letter-spacing:-.07em}
+    .editorial-art{padding:19px 22px;background:linear-gradient(135deg,var(--soft),var(--paper) 65%,var(--soft));display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;min-height:170px}
+    .art-overline,.art-footer{font:800 9px/1.5 'Libre Franklin',sans-serif;letter-spacing:.1em;color:var(--red)}
+    .art-mark{position:absolute;top:7px;right:18px;font:900 clamp(52px,9vw,100px)/1 'Playfair Display',serif;color:var(--red);opacity:.16}
+    .art-headline{font:800 clamp(17px,2vw,25px)/1.2 'Playfair Display',serif;letter-spacing:-.03em;max-width:88%;z-index:1;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+    .lead-grid .media-frame{aspect-ratio:1.55;margin:16px 0}
+    .lead-grid .art-headline{font-size:clamp(21px,2.5vw,32px)}
+    .pick .media-frame{width:95px;height:90px;aspect-ratio:1.05;margin:0}
+    .pick .art-overline,.pick .art-footer,.pick .art-headline{display:none}
+    .pick .art-mark{font-size:65px}
+    .news-card .media-frame{aspect-ratio:1.62}
+    .article .media-frame{aspect-ratio:1.55;margin:0}
+    .article .editorial-art{min-height:270px;padding:28px}
+    .article .editorial-art .art-headline{font-size:clamp(25px,4vw,40px)}
+    @media(max-width:680px){.news-card .media-frame{aspect-ratio:1.55;margin-bottom:15px}.art-headline{font-size:clamp(20px,5vw,27px)}.article .editorial-art{min-height:230px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
   </style>
 </head>
 <body>
-  <div class="announce" id="edition-announce">EDIÇÃO DE 16 DE OUTUBRO DE 2026 · 50 NOTÍCIAS · TEXTOS EDITORIAIS ORIGINAIS</div>
+  <div class="announce" id="edition-announce">EDIÇÃO DE 16/10/2026 · ÚLTIMAS 24 HORAS · 50 NOTÍCIAS</div>
   <header class="container" id="topo">
     <div class="topline">
       <div class="top-left micro"><span class="red-dot"></span> INDEPENDENTE <span class="desktop-only"> &nbsp; / &nbsp; PARA LER COM CALMA</span></div>
@@ -197,7 +218,7 @@
   </div>
   <main class="container">
     <section class="edition">
-      <div><div class="eyebrow"><span class="red-dot"></span> PRIMEIRA EDIÇÃO</div><h2>A capa de hoje <span id="edition-subtitle" style="font-family:Georgia;font-style:italic;font-weight:400">— sexta-feira, 16 de outubro</span></h2></div>
+      <div><div class="eyebrow"><span class="red-dot"></span> EDIÇÃO ATUALIZADA</div><h2>A capa de hoje <span id="edition-subtitle" style="font-family:Georgia;font-style:italic;font-weight:400">— sexta-feira, 16 de outubro</span></h2></div>
       <div class="edition-right micro">50 NOTÍCIAS SELECIONADAS <br> 10 EDITORIAS</div>
     </section>
     <section class="lead-grid" aria-label="Manchetes de demonstração">
@@ -235,7 +256,7 @@
   </main>
   <footer class="footer container">
     <div><strong>NEWS.</strong><br>O jornal do seu dia.</div>
-    <div>Edição de 16 de outubro de 2026.<br>Textos autorais de síntese jornalística com fontes identificadas.</div>
+    <div>Edição atualizada em 16/10/2026 às 20h46 (Brasília).<br>Fotos creditadas quando reutilizáveis; outras pautas têm artes editoriais.</div>
     <div class="micro">UM JORNAL PARA LER DEVAGAR.</div>
   </footer>
   <dialog id="reader" aria-label="Leitura da matéria">
@@ -268,7 +289,10 @@
     const saveState = () => {try{localStorage.setItem('news-saved-v1',JSON.stringify([...saved]));}catch (_){}};
     const getById = id => items.find(a=>a.id===Number(id));
     const scrollToArticles=()=> $('todas').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
-    const img = (a,loading='lazy') => '<img src="'+safeUrl(a.image)+'" alt="'+esc(a.imageAlt||a.category)+'" loading="'+loading+'" onerror="this.setAttribute(\'data-error\',\'\');this.alt=\'Imagem indisponível\';">';
+    const img = (a,loading='lazy') => {
+      if (a.image && a.imageCredit) return '<div class="media-frame photo-frame"><img src="'+safeUrl(a.image)+'" alt="'+esc(a.photoCaption||a.title)+'" loading="'+loading+'" onerror="this.style.display=\'none\';this.parentElement.classList.add(\'photo-failed\');"><span class="photo-attribution">'+esc(a.imageCredit)+'</span><span class="photo-fallback">NEWS.</span></div>';
+      return '<div class="media-frame editorial-art" role="img" aria-label="Arte editorial do NEWS"><span class="art-overline">NEWS / '+esc(a.category)+'</span><span class="art-mark">N.</span><span class="art-headline">'+esc(a.title)+'</span><span class="art-footer">ARTE EDITORIAL · SEM FOTO AUTORIZADA</span></div>';
+    };
     const openable = (a,inner,classes='') => '<div class="story-action '+classes+'" role="button" tabindex="0" data-open="'+a.id+'">'+inner+'</div>';
     const categoryLabel = a => '<span class="eyebrow">'+esc(a.category)+'</span>';
     const minLabel = a => esc((a.readMinutes||5)+' MIN DE LEITURA');
@@ -278,7 +302,7 @@
     function renderCover(){
       const a=items[0],b=items[5],c=items[20];
       if(!a)return;
-      $('lead-primary').innerHTML= '<div class="eyebrow">A GRANDE QUESTÃO · BRASIL</div><h2 class="lead-title">'+esc(a.title)+'</h2><p class="lead-dek">'+esc(a.summary)+'</p>'+img(a,'eager')+'<div class="byline">'+demoText+' &nbsp;·&nbsp; '+minLabel(a)+'</div>';
+      $('lead-primary').innerHTML= '<div class="eyebrow">DESTAQUE DA EDIÇÃO</div><h2 class="lead-title">'+esc(a.title)+'</h2><p class="lead-dek">'+esc(a.summary)+'</p>'+img(a,'eager')+'<div class="byline">'+demoText+' &nbsp;·&nbsp; '+minLabel(a)+'</div>';
       $('lead-primary').dataset.open=a.id;
       $('lead-middle').innerHTML=(b?openable(b,img(b,'eager')+categoryLabel(b)+'<h3>'+esc(b.title)+'</h3><p>'+esc(b.summary)+'</p><div class="byline">'+minLabel(b)+'</div>','mid-feature'):'')+(c?openable(c,categoryLabel(c)+'<h3>'+esc(c.title)+'</h3><p class="byline">'+minLabel(c)+'</p>','mid-second'):'');
       $('lead-rail').innerHTML=items.slice(10,15).map((a,i)=>'<div class="rail-item story-action" role="button" tabindex="0" data-open="'+a.id+'"><span>0'+(i+1)+'</span><strong>'+esc(a.title)+'</strong></div>').join('');
@@ -307,7 +331,7 @@
       const paras=Array.isArray(a.body)?a.body:[a.summary];
       const bodyParas=paras.length>1&&paras[0]===a.summary?paras.slice(1):paras;
       const origin=a.sourceName ? esc(a.sourceName) : 'Fonte jornalística';
-      return '<article class="article"><div class="article-label">'+esc(a.category)+'</div><h2>'+esc(a.title)+'</h2><p class="article-lede">'+esc(a.summary)+'</p><div class="author">'+(source.demo?'EDIÇÃO ZERO · TEXTO ILUSTRATIVO':'NEWS · '+esc(a.date||source.date||'')+' · FONTE: '+origin)+' &nbsp;·&nbsp; '+minLabel(a)+'</div><figure>'+img(a,'eager')+'<figcaption>Imagem de apoio meramente ilustrativa; não representa necessariamente o acontecimento noticiado. '+(source.demo?'Edição de demonstração.':'Foto de banco de imagens para ambientação editorial.')+'</figcaption></figure>'+(source.demo?'<div class="notice"><strong>Conteúdo de demonstração.</strong> Esta é uma pauta editorial fictícia criada para testar o visual e a experiência de leitura. Não representa uma notícia apurada nem uma matéria publicada por outro veículo.</div>':'')+'<div class="article-body">'+bodyParas.map(p=>'<p>'+esc(p)+'</p>').join('')+'</div><div class="article-end">'+(url?'<p>Fonte consultada: <a href="'+url+'" target="_blank" rel="noopener noreferrer">'+origin+' — abrir reportagem de referência ↗</a></p>':'')+'<p>NEWS. O jornal do seu dia. '+(source.demo?'Exemplar experimental.':'Esta é uma síntese original baseada nas informações da fonte indicada, não uma reprodução integral da reportagem.')+'</p><button type="button" class="backtop" id="back-article-top">↑ Voltar ao começo</button></div></article>';
+      return '<article class="article"><div class="article-label">'+esc(a.category)+'</div><h2>'+esc(a.title)+'</h2><p class="article-lede">'+esc(a.summary)+'</p><div class="author">'+(source.demo?'EDIÇÃO ZERO · TEXTO ILUSTRATIVO':'NEWS · '+esc(a.date||source.date||'')+' · FONTE: '+origin)+' &nbsp;·&nbsp; '+minLabel(a)+'</div><figure>'+img(a,'eager')+'<figcaption>' +(a.image && a.imageCredit ? esc(a.photoCaption||'Foto contextual ligada à pauta.')+' Crédito: '+esc(a.imageCredit)+'.' : 'Arte editorial produzida para o NEWS; não é fotografia do acontecimento.')+'+'</figcaption></figure>'+(source.demo?'<div class="notice"><strong>Conteúdo de demonstração.</strong> Esta é uma pauta editorial fictícia criada para testar o visual e a experiência de leitura. Não representa uma notícia apurada nem uma matéria publicada por outro veículo.</div>':'')+'<div class="article-body">'+bodyParas.map(p=>'<p>'+esc(p)+'</p>').join('')+'</div><div class="article-end">'+(url?'<p>Fonte consultada: <a href="'+url+'" target="_blank" rel="noopener noreferrer">'+origin+' — abrir reportagem de referência ↗</a></p>':'')+'<p>NEWS. O jornal do seu dia. '+(source.demo?'Exemplar experimental.':'Esta é uma síntese original baseada nas informações da fonte indicada, não uma reprodução integral da reportagem.')+'</p><button type="button" class="backtop" id="back-article-top">↑ Voltar ao começo</button></div></article>';
     }
     function openArticle(id){
       const a=getById(id);if(!a)return;
@@ -361,7 +385,7 @@
     if(!source.demo){
       $('edition-date').textContent='16 DE OUTUBRO DE 2026';
       $('edition-subtitle').textContent='— sexta-feira, 16 de outubro';
-      $('edition-announce').textContent='EDIÇÃO DE 16 DE OUTUBRO DE 2026 · 50 NOTÍCIAS · TEXTOS EDITORIAIS ORIGINAIS';
+      $('edition-announce').textContent='EDIÇÃO DE 16/10/2026 · ÚLTIMAS 24 HORAS · 50 NOTÍCIAS';
       document.title='NEWS — '+(source.date||'Edição atual');
     }
     renderNav();renderCover();renderList();
