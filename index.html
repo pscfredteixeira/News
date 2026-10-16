@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f3ec">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="NEWS">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <link rel="manifest" href="./manifest.webmanifest">
   <meta name="description" content="NEWS — Um jornal para ler devagar. 50 notícias com textos editoriais originais e links para fontes jornalísticas.">
   <meta property="og:title" content="NEWS — O jornal do seu dia">
   <meta property="og:description" content="Uma experiência editorial em formato de jornal, para acompanhar Brasil e mundo.">
@@ -331,6 +339,13 @@
     const hash=location.hash.match(/^#materia-(\d+)$/);
     if(hash)openArticle(hash[1]);
   })();
+  </script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+  }
   </script>
 </body>
 </html>
