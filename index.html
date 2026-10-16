@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f3ec">
+  <meta name="description" content="NEWS — Um jornal para ler devagar. Edição de demonstração com 50 pautas, editorias e experiência de leitura.">
+  <meta property="og:title" content="NEWS — O jornal do seu dia">
+  <meta property="og:description" content="Uma experiência editorial em formato de jornal, para acompanhar Brasil e mundo.">
+  <title>NEWS — Edição zero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Franklin:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--paper:#f6f3ec;--white:#fffdfa;--ink:#22211f;--muted:#73716a;--rule:#ccc6ba;--red:#9c392d;--soft:#ede7de;--article-size:19px;color-scheme:light}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+    body.dark{--paper:#1d1e1d;--white:#242524;--ink:#eeeae2;--muted:#b4afa4;--rule:#55544e;--red:#e69c86;--soft:#34342f;color-scheme:dark}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit}
+    img{display:block;width:100%;object-fit:cover}
+    img[data-error]{background:var(--soft)}
+    .container{max-width:1392px;margin:0 auto;padding:0 clamp(18px,4vw,68px)}
+    .micro{font-family:'Libre Franklin',sans-serif;font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+    .mono{font-family:'Libre Franklin',sans-serif;font-size:11px;font-weight:600;letter-spacing:.02em}
+    .serif{font-family:'Playfair Display',Georgia,serif}
+    .announce{background:var(--ink);color:var(--paper);text-align:center;padding:9px 16px;font-size:10px;letter-spacing:.13em;font-weight:700;text-transform:uppercase}
+    .topline{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);padding:17px 0 15px;gap:18px}
+    .topline .top-center{text-align:center;color:var(--muted)}
+    .top-actions{display:flex;gap:6px;align-items:center}
+    .icon-button{border:1px solid var(--rule);background:transparent;color:var(--ink);border-radius:50%;width:35px;height:35px;display:inline-flex;align-items:center;justify-content:center;transition:background .2s}
+    .icon-button:hover{background:var(--soft)}
+    .icon-button svg{width:16px;height:16px}
+    .brand-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:15px;padding:24px 0 22px}
+    .brand-note{max-width:180px;line-height:1.7;color:var(--muted)}
+    .brand-note:last-child{justify-self:end;text-align:right}
+    .masthead{text-align:center}
+    .masthead h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(76px,10.1vw,144px);font-weight:900;line-height:.88;letter-spacing:-.092em;margin:0;padding-right:.12em}
+    .masthead h1 i{color:var(--red);font-style:normal}
+    .masthead p{font-family:'Libre Franklin',Arial,sans-serif;font-size:11px;letter-spacing:.42em;text-transform:uppercase;margin:13px 0 0;font-weight:800}
+    .nav-wrap{border-top:3px double var(--ink);border-bottom:1px solid var(--ink);position:sticky;top:0;background:var(--paper);z-index:50}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:22px;overflow-x:auto;scrollbar-width:none}
+    .nav::-webkit-scrollbar{display:none}
+    .nav button{white-space:nowrap;border:0;background:transparent;padding:17px 0 16px;font-family:'Libre Franklin',Arial,sans-serif;text-transform:uppercase;letter-spacing:.09em;font-weight:800;font-size:10px;color:var(--ink);border-bottom:3px solid transparent}
+    .nav button.active{border-bottom-color:var(--red);color:var(--red)}
+    .edition{display:flex;align-items:center;justify-content:space-between;padding-top:24px;gap:15px}
+    .edition h2{margin:0;font-family:'Playfair Display',serif;font-size:28px;letter-spacing:-.035em}
+    .edition .edition-right{color:var(--muted);text-align:right}
+    .red-dot{display:inline-block;width:7px;height:7px;background:var(--red);border-radius:50%;margin-right:7px;vertical-align:middle}
+    .lead-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr) minmax(190px,.67fr);gap:26px;margin-top:24px;border-top:1px solid var(--rule);padding-top:24px}
+    .story-action{cursor:pointer}
+    .story-action:focus-visible{outline:3px solid var(--red);outline-offset:5px}
+    .eyebrow{font-family:'Libre Franklin',Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+    .lead-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,3.2vw,48px);font-weight:800;line-height:1.13;letter-spacing:-.05em;margin:12px 0}
+    .lead-img{aspect-ratio:1.55;width:100%;filter:saturate(.80);margin-bottom:18px;background:var(--soft)}
+    .lead-dek{font-size:15px;line-height:1.65;color:var(--muted);margin:0 0 15px}
+    .byline{font-size:10px;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;font-family:'Libre Franklin',sans-serif;font-weight:700}
+    .lead-mid{border-left:1px solid var(--rule);padding-left:25px}
+    .mid-feature img{aspect-ratio:1.35;margin-bottom:16px;filter:saturate(.8)}
+    .mid-feature h3{font-family:'Playfair Display',Georgia,serif;font-size:25px;line-height:1.23;letter-spacing:-.035em;margin:10px 0}
+    .mid-feature p{font-size:13px;color:var(--muted);line-height:1.7}
+    .mid-second{margin-top:26px;padding-top:23px;border-top:1px solid var(--rule)}
+    .mid-second h3{font-family:'Playfair Display',Georgia,serif;font-size:21px;line-height:1.32;margin:8px 0}
+    .lead-rail{border-left:1px solid var(--rule);padding-left:23px}
+    .lead-rail h3{font-family:'Playfair Display',Georgia,serif;font-size:24px;margin:0 0 14px;letter-spacing:-.025em}
+    .rail-item{display:grid;grid-template-columns:26px 1fr;gap:9px;padding:15px 0;border-top:1px solid var(--rule)}
+    .rail-item span{font-family:'Playfair Display',Georgia,serif;font-weight:800;color:var(--red);font-size:19px}
+    .rail-item strong{font-family:'Playfair Display',Georgia,serif;font-size:16px;line-height:1.35}
+    .section-rule{margin-top:49px;padding:13px 0 10px;border-top:3px double var(--ink);border-bottom:1px solid var(--rule);display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+    .section-rule h2{font-family:'Playfair Display',Georgia,serif;font-size:34px;letter-spacing:-.04em;margin:0}
+    .section-rule p{margin:0;color:var(--muted);font-size:12px}
+    .editors-pick{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:25px}
+    .pick{display:grid;grid-template-columns:95px 1fr;gap:15px;align-items:start}
+    .pick img{width:95px;height:90px;filter:saturate(.78)}
+    .pick h3{font-family:'Playfair Display',serif;font-size:18px;line-height:1.3;letter-spacing:-.02em;margin:6px 0}
+    .pick .micro{color:var(--red)}
+    .browse-tools{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:25px 0 22px}
+    .tabs{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .tab{background:transparent;border:1px solid var(--rule);border-radius:100px;color:var(--ink);font-size:11px;padding:10px 14px;font-weight:700}
+    .tab.selected{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+    .search{position:relative;flex:0 1 290px}
+    .search input{width:100%;border:1px solid var(--rule);background:var(--white);color:var(--ink);border-radius:50px;padding:11px 16px 11px 37px;outline:none;font-size:12px}
+    .search input:focus{border-color:var(--red)}
+    .search svg{position:absolute;left:13px;top:11px;width:15px;height:15px;color:var(--muted)}
+    .news-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 26px}
+    .news-card{border-top:1px solid var(--rule);padding-top:14px;min-width:0}
+    .news-card img{aspect-ratio:1.62;filter:saturate(.77);margin-bottom:15px;transition:filter .2s}
+    .news-card:hover img{filter:saturate(1)}
+    .news-card h3{font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,1.8vw,25px);line-height:1.28;letter-spacing:-.035em;margin:8px 0 10px;font-weight:700}
+    .news-card p{font-size:13px;color:var(--muted);line-height:1.65;margin:0 0 12px}
+    .card-meta{display:flex;align-items:center;justify-content:space-between;gap:5px}
+    .card-meta .byline{font-size:9px}
+    .bookmark{border:0;color:var(--muted);background:transparent;padding:6px 3px;font-size:18px;line-height:1}
+    .bookmark.saved{color:var(--red)}
+    .empty{padding:70px 15px;text-align:center;border:1px solid var(--rule);grid-column:1/-1;color:var(--muted)}
+    .load-wrap{text-align:center;padding:45px 0 12px}
+    .load-more{background:var(--ink);border:1px solid var(--ink);color:var(--paper);font-weight:800;letter-spacing:.08em;font-size:11px;text-transform:uppercase;padding:16px 29px}
+    .load-more:hover{opacity:.85}
+    .load-wrap p{font-size:11px;color:var(--muted);margin-top:14px}
+    .newsletter{margin-top:60px;background:var(--ink);color:var(--paper);padding:35px 40px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+    .newsletter h2{font-family:'Playfair Display',Georgia,serif;letter-spacing:-.03em;font-size:31px;line-height:1.2;margin:8px 0}
+    .newsletter p{color:var(--paper);opacity:.72;font-size:13px;margin:0;line-height:1.7}
+    .newsletter .outline{background:none;border:1px solid currentColor;color:inherit;white-space:nowrap;padding:13px 18px;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .footer{margin-top:50px;border-top:3px double var(--ink);padding:28px 0 45px;display:flex;justify-content:space-between;align-items:center;gap:18px;font-size:11px;color:var(--muted)}
+    .footer strong{font-family:'Playfair Display',Georgia,serif;color:var(--ink);font-size:38px;font-weight:900;letter-spacing:-.08em}
+    dialog{background:var(--paper);color:var(--ink);border:0;padding:0;width:min(100%,920px);max-width:920px;height:min(94dvh,1100px);max-height:94dvh;box-shadow:0 15px 80px #0005;overflow:auto}
+    dialog::backdrop{background:#141414b9;backdrop-filter:blur(4px)}
+    .reader-header{background:var(--paper);border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:12px clamp(20px,5vw,60px);gap:14px}
+    .reader-header strong{font-family:'Playfair Display',Georgia,serif;font-weight:900;font-size:26px;letter-spacing:-.09em}
+    .reader-tools{display:flex;gap:6px;align-items:center}
+    .reader-tools button{background:transparent;color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:8px 10px;font-size:13px}
+    .reader-tools button:hover{background:var(--soft)}
+    .reader-tools .close-reader{font-size:20px;width:36px;height:36px;line-height:16px}
+    .read-progress{position:absolute;height:2px;background:var(--red);width:0;bottom:-1px;left:0}
+    .article{max-width:700px;margin:0 auto;padding:45px 28px 80px}
+    .article .article-label{display:inline-block;color:var(--red);font-family:'Libre Franklin',sans-serif;text-transform:uppercase;letter-spacing:.16em;font-weight:800;font-size:11px}
+    .article h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(38px,5.6vw,64px);letter-spacing:-.055em;line-height:1.13;margin:13px 0 18px}
+    .article-lede{font-size:20px;line-height:1.55;color:var(--muted);margin:0 0 21px}
+    .article .author{font-family:'Libre Franklin',sans-serif;font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:.08em;border-top:1px solid var(--rule);padding:16px 0}
+    .article figure{margin:12px 0 30px}
+    .article figure img{aspect-ratio:1.55}
+    .article figcaption{font-size:11px;color:var(--muted);margin-top:9px;line-height:1.4}
+    .article-body p{font-family:Georgia,'Times New Roman',serif;font-size:var(--article-size);line-height:1.86;margin:0 0 24px}
+    .article-body p:first-child::first-letter{font-family:'Playfair Display',serif;float:left;font-size:3.7em;line-height:.8;padding:10px 10px 0 0;color:var(--red)}
+    .article-end{border-top:1px solid var(--rule);margin-top:30px;padding-top:20px;font-size:12px;color:var(--muted);line-height:1.65}
+    .article-end a{color:var(--red)}
+    .notice{padding:13px 16px;background:var(--soft);border-left:3px solid var(--red);font-size:12px;line-height:1.6;color:var(--ink);margin-bottom:32px}
+    .backtop{border:1px solid var(--rule);background:transparent;color:var(--ink);font-size:11px;font-weight:800;padding:11px 14px;margin-top:8px}
+    @media(max-width:1050px){.lead-grid{grid-template-columns:minmax(0,1.45fr) minmax(0,1fr)}.lead-rail{grid-column:1/-1;border-left:0;border-top:1px solid var(--rule);padding:15px 0 0}.lead-rail .rail-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.rail-item{display:block}.rail-item span{display:block;margin-bottom:5px}.editors-pick{grid-template-columns:1fr 1fr}}
+    @media(max-width:720px){.container{padding:0 19px}.topline{padding:12px 0}.topline .top-center,.topline .top-left .desktop-only{display:none}.brand-row{display:block;text-align:center;padding:26px 0 25px}.brand-note{display:none}.masthead h1{font-size:clamp(82px,20vw,140px)}.masthead p{font-size:9px;letter-spacing:.33em}.nav{gap:24px}.nav button{padding:14px 0}.edition{padding-top:20px}.edition h2{font-size:22px}.edition-right{font-size:9px}.lead-grid{grid-template-columns:1fr;gap:27px;margin-top:18px}.lead-title{font-size:36px}.lead-mid{border-left:0;border-top:1px solid var(--rule);padding:24px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:18px}.mid-feature h3{font-size:20px}.mid-feature img{aspect-ratio:1.2}.mid-second{margin:0;padding:0;border-top:0}.lead-rail{grid-column:auto}.lead-rail .rail-list{grid-template-columns:1fr 1fr;column-gap:20px}.rail-item strong{font-size:15px}.section-rule h2{font-size:29px}.section-rule p{font-size:10px}.editors-pick{grid-template-columns:1fr;gap:20px}.browse-tools{align-items:stretch;flex-direction:column-reverse}.search{flex:auto}.news-grid{grid-template-columns:1fr 1fr;gap:25px 16px}.news-card h3{font-size:19px}.news-card p{font-size:12px}.news-card img{aspect-ratio:1.28}.newsletter{padding:30px 23px;display:block}.newsletter h2{font-size:28px}.newsletter .outline{margin-top:20px}.footer{flex-wrap:wrap}.article{padding:34px 23px 50px}.article h2{font-size:42px}.reader-header{padding:10px 14px}}
+    @media(max-width:430px){.news-grid{grid-template-columns:1fr}.news-card{display:grid;grid-template-columns:112px 1fr;column-gap:14px;align-items:start}.news-card img{grid-row:1/6;width:112px;aspect-ratio:1;object-fit:cover;margin:0}.news-card h3{font-size:18px;margin:3px 0 7px}.news-card .eyebrow{font-size:9px}.news-card p{font-size:11px;margin-bottom:8px}.news-card .card-meta{grid-column:2}.lead-mid{grid-template-columns:1fr 1fr}.lead-rail .rail-list{grid-template-columns:1fr}.article h2{font-size:35px}.article-lede{font-size:17px}.reader-tools button{padding:7px 8px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="announce">EDIÇÃO ZERO · PROTÓTIPO EDITORIAL · AS PAUTAS A SEGUIR SÃO ILUSTRATIVAS, NÃO NOTÍCIAS ATUAIS</div>
+  <header class="container" id="topo">
+    <div class="topline">
+      <div class="top-left micro"><span class="red-dot"></span> INDEPENDENTE <span class="desktop-only"> &nbsp; / &nbsp; PARA LER COM CALMA</span></div>
+      <div class="top-center micro" id="edition-date">16 DE OUTUBRO DE 2026</div>
+      <div class="top-actions">
+        <button class="icon-button" id="theme-button" type="button" aria-label="Alternar tema claro e escuro" title="Modo noturno">
+          <svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20.9 13.1A9 9 0 0 1 10.9 3.1 9 9 0 1 0 20.9 13.1Z"/></svg>
+        </button>
+        <button class="icon-button" id="saved-button" type="button" aria-label="Ver matérias salvas" title="Matérias salvas">
+          <svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="brand-row">
+      <p class="brand-note micro">BRASIL &amp; MUNDO<br>POLÍTICA, IDEIAS &amp; CULTURA</p>
+      <div class="masthead"><h1>NEWS<i>.</i></h1><p>O jornal do seu dia</p></div>
+      <p class="brand-note micro">50 HISTÓRIAS<br>UMA LEITURA DE CADA VEZ</p>
+    </div>
+  </header>
+  <div class="nav-wrap">
+    <nav class="nav container" id="main-nav" aria-label="Editorias"></nav>
+  </div>
+  <main class="container">
+    <section class="edition">
+      <div><div class="eyebrow"><span class="red-dot"></span> PRIMEIRA EDIÇÃO</div><h2>A capa de hoje <span style="font-family:Georgia;font-style:italic;font-weight:400">— edição zero</span></h2></div>
+      <div class="edition-right micro">50 MATÉRIAS DEMONSTRATIVAS <br> 10 EDITORIAS</div>
+    </section>
+    <section class="lead-grid" aria-label="Manchetes de demonstração">
+      <article class="story-action" id="lead-primary" tabindex="0"></article>
+      <div class="lead-mid" id="lead-middle"></div>
+      <aside class="lead-rail"><h3>Em destaque<span style="color:var(--red)">.</span></h3><div class="rail-list" id="lead-rail"></div></aside>
+    </section>
+    <section>
+      <div class="section-rule"><h2>Escolhas da redação<span style="color:var(--red)">.</span></h2><p>PARA COMEÇAR A LEITURA</p></div>
+      <div class="editors-pick" id="editors-pick"></div>
+    </section>
+    <section id="todas">
+      <div class="section-rule"><h2>O jornal completo<span style="color:var(--red)">.</span></h2><p id="results-label">50 PAUTAS</p></div>
+      <div class="browse-tools">
+        <div class="tabs" id="filter-tabs">
+          <button class="tab selected" type="button" data-filter="Todas">Todas</button>
+          <button class="tab" type="button" data-filter="Brasil">Brasil</button>
+          <button class="tab" type="button" data-filter="Mundo">Mundo</button>
+          <button class="tab" type="button" data-filter="Cultura">Cultura</button>
+          <button class="tab" type="button" data-filter="Televisão">Televisão</button>
+          <button class="tab" type="button" data-filter="Salvas">Salvas <span id="saved-count">0</span></button>
+        </div>
+        <label class="search">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+          <input id="search-input" type="search" placeholder="Buscar no jornal..." aria-label="Buscar matérias">
+        </label>
+      </div>
+      <div class="news-grid" id="news-grid" aria-live="polite"></div>
+      <div class="load-wrap"><button class="load-more" id="load-more" type="button">Ver mais matérias ↓</button><p id="pagination-text"></p></div>
+    </section>
+    <div class="newsletter">
+      <div><div class="micro">UM NOVO JEITO DE SE INFORMAR</div><h2>Uma edição nova quando você quiser.</h2><p>O NEWS será atualizado sob demanda no ChatGPT — sem rolagem infinita, sem pressa, com fontes identificadas.</p></div>
+      <button class="outline" type="button" id="how-button">Como funcionará ↗</button>
+    </div>
+  </main>
+  <footer class="footer container">
+    <div><strong>NEWS.</strong><br>O jornal do seu dia.</div>
+    <div>Edição zero — protótipo para avaliação de design.<br>Todos os textos e chamadas são demonstrativos.</div>
+    <div class="micro">UM JORNAL PARA LER DEVAGAR.</div>
+  </footer>
+  <dialog id="reader" aria-label="Leitura da matéria">
+    <div class="reader-header">
+      <strong>NEWS<span style="color:var(--red)">.</span></strong>
+      <div class="reader-tools">
+        <button type="button" id="font-smaller" title="Diminuir texto" aria-label="Diminuir texto">A−</button>
+        <button type="button" id="font-bigger" title="Aumentar texto" aria-label="Aumentar texto">A+</button>
+        <button type="button" id="article-save" title="Salvar matéria">☆</button>
+        <button type="button" class="close-reader" id="reader-close" aria-label="Fechar matéria">×</button>
+      </div>
+      <div class="read-progress" id="read-progress"></div>
+    </div>
+    <div id="reader-body"></div>
+  </dialog>
+  <script src="data.js"></script>
+  <script>
+  (() => {
+    'use strict';
+    const source = window.NEWS_DATA || {edition:'Edição zero',demo:true,articles:[]};
+    const items = Array.isArray(source.articles) ? source.articles : [];
+    const categories = [...new Set(items.map(a=>a.category))];
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const safeUrl = url => /^https:\/\//i.test(String(url||'')) ? esc(url) : '';
+    const demoText = 'DEMONSTRAÇÃO · NÃO É NOTÍCIA ATUAL';
+    let active = 'Todas', query = '', visible = 12, currentArticle = null;
+    let saved = new Set();
+    try { saved = new Set(JSON.parse(localStorage.getItem('news-saved-v1') || '[]').map(Number)); } catch (_) {}
+    const saveState = () => {try{localStorage.setItem('news-saved-v1',JSON.stringify([...saved]));}catch (_){}};
+    const getById = id => items.find(a=>a.id===Number(id));
+    const scrollToArticles=()=> $('todas').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    const img = (a,loading='lazy') => '<img src="'+safeUrl(a.image)+'" alt="'+esc(a.imageAlt||a.category)+'" loading="'+loading+'" onerror="this.setAttribute(\'data-error\',\'\');this.alt=\'Imagem indisponível\';">';
+    const openable = (a,inner,classes='') => '<div class="story-action '+classes+'" role="button" tabindex="0" data-open="'+a.id+'">'+inner+'</div>';
+    const categoryLabel = a => '<span class="eyebrow">'+esc(a.category)+'</span>';
+    const minLabel = a => esc((a.readMinutes||5)+' MIN DE LEITURA');
+    function renderNav(){
+      $('main-nav').innerHTML=['Todas',...categories].map(x=>'<button data-nav="'+esc(x)+'" class="'+(x===active?'active':'')+'" type="button">'+(x==='Todas'?'Capa':esc(x))+'</button>').join('');
+    }
+    function renderCover(){
+      const a=items[0],b=items[5],c=items[20];
+      if(!a)return;
+      $('lead-primary').innerHTML= '<div class="eyebrow">A GRANDE QUESTÃO · BRASIL</div><h2 class="lead-title">'+esc(a.title)+'</h2><p class="lead-dek">'+esc(a.summary)+'</p>'+img(a,'eager')+'<div class="byline">'+demoText+' &nbsp;·&nbsp; '+minLabel(a)+'</div>';
+      $('lead-primary').dataset.open=a.id;
+      $('lead-middle').innerHTML=(b?openable(b,img(b,'eager')+categoryLabel(b)+'<h3>'+esc(b.title)+'</h3><p>'+esc(b.summary)+'</p><div class="byline">'+minLabel(b)+'</div>','mid-feature'):'')+(c?openable(c,categoryLabel(c)+'<h3>'+esc(c.title)+'</h3><p class="byline">'+minLabel(c)+'</p>','mid-second'):'');
+      $('lead-rail').innerHTML=items.slice(10,15).map((a,i)=>'<div class="rail-item story-action" role="button" tabindex="0" data-open="'+a.id+'"><span>0'+(i+1)+'</span><strong>'+esc(a.title)+'</strong></div>').join('');
+      $('editors-pick').innerHTML=[items[27],items[37],items[46]].filter(Boolean).map(a=>openable(a,img(a)+'<div><span class="micro">'+esc(a.category)+'</span><h3>'+esc(a.title)+'</h3><div class="byline">'+minLabel(a)+'</div></div>','pick')).join('');
+    }
+    function filtered(){
+      const q=query.toLocaleLowerCase('pt-BR').trim();
+      return items.filter(a=>(active==='Todas'||(active==='Salvas'?saved.has(a.id):a.category===active))&&(!q||(a.title+' '+a.summary+' '+a.category).toLocaleLowerCase('pt-BR').includes(q)));
+    }
+    function card(a){
+      return '<article class="news-card">'+openable(a,img(a)+categoryLabel(a)+'<h3>'+esc(a.title)+'</h3><p>'+esc(a.summary)+'</p>')+'<div class="card-meta"><span class="byline">'+minLabel(a)+'</span><button class="bookmark '+(saved.has(a.id)?'saved':'')+'" data-save="'+a.id+'" aria-label="'+(saved.has(a.id)?'Remover matéria dos salvos':'Salvar matéria')+'" title="Salvar para ler depois">'+(saved.has(a.id)?'★':'☆')+'</button></div></article>';
+    }
+    function renderList(){
+      const results=filtered();
+      $('results-label').textContent=results.length+' '+(results.length===1?'PAUTA':'PAUTAS')+' · '+(source.demo?'EXEMPLOS':'EDIÇÃO ATUAL');
+      $('saved-count').textContent=saved.size;
+      $('news-grid').innerHTML=results.length?results.slice(0,visible).map(card).join(''):'<div class="empty">Nenhuma matéria encontrada. Experimente outra editoria ou palavra.</div>';
+      $('load-more').hidden=visible>=results.length;
+      $('pagination-text').textContent=results.length?'Exibindo '+Math.min(visible,results.length)+' de '+results.length+' matérias':'';
+      document.querySelectorAll('[data-filter]').forEach(e=>e.classList.toggle('selected',e.dataset.filter===active));
+      document.querySelectorAll('[data-nav]').forEach(e=>e.classList.toggle('active',e.dataset.nav===active));
+    }
+    function selectFilter(x){active=x;visible=12;renderList();scrollToArticles();}
+    function articleHTML(a){
+      const url=safeUrl(a.sourceUrl);
+      const paras=Array.isArray(a.body)?a.body:[a.summary];
+      return '<article class="article"><div class="article-label">'+esc(a.category)+'</div><h2>'+esc(a.title)+'</h2><p class="article-lede">'+esc(a.summary)+'</p><div class="author">'+(source.demo?'EDIÇÃO ZERO · TEXTO ILUSTRATIVO':'NEWS · '+esc(a.date||source.date||''))+' &nbsp;·&nbsp; '+minLabel(a)+'</div><figure>'+img(a,'eager')+'<figcaption>Imagem ilustrativa. '+(source.demo?'Esta edição demonstra apenas o funcionamento do jornal.':'Consulte a origem e os créditos da fotografia.')+'</figcaption></figure>'+(source.demo?'<div class="notice"><strong>Conteúdo de demonstração.</strong> Esta é uma pauta editorial fictícia criada para testar o visual e a experiência de leitura. Não representa uma notícia apurada nem uma matéria publicada por outro veículo.</div>':'')+'<div class="article-body">'+paras.map(p=>'<p>'+esc(p)+'</p>').join('')+'</div><div class="article-end">'+(url?'<p>Fonte: <a href="'+url+'" target="_blank" rel="noopener noreferrer">Leia a publicação original ↗</a></p>':'')+'<p>NEWS. O jornal do seu dia. '+(source.demo?'Exemplar experimental.':'Informação com contexto e fontes.')+'</p><button type="button" class="backtop" id="back-article-top">↑ Voltar ao começo</button></div></article>';
+    }
+    function openArticle(id){
+      const a=getById(id);if(!a)return;
+      currentArticle=a;
+      $('reader-body').innerHTML=articleHTML(a);
+      $('article-save').textContent=saved.has(a.id)?'★':'☆';
+      $('article-save').setAttribute('aria-label',saved.has(a.id)?'Remover dos salvos':'Salvar matéria');
+      $('reader').showModal();$('reader').scrollTop=0;updateProgress();
+      try{history.replaceState(null,'','#materia-'+a.id)}catch(_){}
+    }
+    function closeArticle(){
+      $('reader').close();currentArticle=null;
+      try{history.replaceState(null,'',location.pathname+location.search)}catch(_){}
+    }
+    function toggleSave(id){
+      const a=getById(id);if(!a)return;
+      saved.has(a.id)?saved.delete(a.id):saved.add(a.id);
+      saveState();renderList();
+      if(currentArticle&&currentArticle.id===a.id){$('article-save').textContent=saved.has(a.id)?'★':'☆';$('article-save').setAttribute('aria-label',saved.has(a.id)?'Remover dos salvos':'Salvar matéria');}
+    }
+    function updateProgress(){
+      const d=$('reader');const max=d.scrollHeight-d.clientHeight;
+      $('read-progress').style.width=(max>0?100*d.scrollTop/max:0)+'%';
+    }
+    document.addEventListener('click',e=>{
+      const save=e.target.closest('[data-save]');if(save){toggleSave(save.dataset.save);return;}
+      const nav=e.target.closest('[data-nav]');if(nav){if(nav.dataset.nav==='Todas'){active='Todas';visible=12;renderList();window.scrollTo({top:0,behavior:'smooth'});}else selectFilter(nav.dataset.nav);return;}
+      const tab=e.target.closest('[data-filter]');if(tab){selectFilter(tab.dataset.filter);return;}
+      const action=e.target.closest('[data-open]');if(action){openArticle(action.dataset.open);}
+    });
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){const el=e.target.closest('[data-open]');if(el&&e.target===el){e.preventDefault();openArticle(el.dataset.open);}}
+    });
+    $('search-input').addEventListener('input',e=>{query=e.target.value;visible=12;renderList();});
+    $('load-more').addEventListener('click',()=>{visible+=12;renderList();});
+    $('reader-close').addEventListener('click',closeArticle);
+    $('reader').addEventListener('click',e=>{if(e.target===$('reader'))closeArticle();});
+    $('reader').addEventListener('close',()=>{currentArticle=null;});
+    $('reader').addEventListener('scroll',updateProgress,{passive:true});
+    $('article-save').addEventListener('click',()=>{if(currentArticle)toggleSave(currentArticle.id)});
+    $('font-bigger').addEventListener('click',()=>{const n=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--article-size'))||19;document.documentElement.style.setProperty('--article-size',Math.min(26,n+2)+'px');});
+    $('font-smaller').addEventListener('click',()=>{const n=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--article-size'))||19;document.documentElement.style.setProperty('--article-size',Math.max(15,n-2)+'px');});
+    $('reader-body').addEventListener('click',e=>{if(e.target.id==='back-article-top')$('reader').scrollTo({top:0,behavior:'smooth'});});
+    $('saved-button').addEventListener('click',()=>selectFilter('Salvas'));
+    $('theme-button').addEventListener('click',()=>{
+      document.body.classList.toggle('dark');
+      try{localStorage.setItem('news-theme',document.body.classList.contains('dark')?'dark':'light');}catch(_){}
+    });
+    $('how-button').addEventListener('click',()=>alert('Nas próximas edições, basta pedir ao ChatGPT: “Atualize o NEWS com as 50 notícias mais importantes de hoje”. O conteúdo publicado no GitHub será substituído por uma nova edição, com textos próprios, fontes e links. O site não se atualiza sozinho.'));
+    try{if(localStorage.getItem('news-theme')==='dark')document.body.classList.add('dark');}catch(_){}
+    renderNav();renderCover();renderList();
+    const hash=location.hash.match(/^#materia-(\d+)$/);
+    if(hash)openArticle(hash[1]);
+  })();
+  </script>
+</body>
+</html>
