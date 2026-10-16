@@ -63,3 +63,7 @@ Não reproduzir na íntegra textos jornalísticos ou fotografias protegidos por 
 ```
 
 **Observação editorial:** a leitura de notícias históricas no arquivo é uma funcionalidade futura, não implementada ainda. A edição atual substitui a anterior, mantendo sempre o jornal mais recente disponível.
+
+## Ícone no iPhone (16/10/2026)
+
+Para contornar ícones antigos armazenados pelo Safari, a página usa um `apple-touch-icon` de 180×180 pixels com endereço versionado `news-touch-20261016.png`. A configuração PWA foi revisada. Remova o atalho antigo e adicione novamente pelo Safari (Compartilhar → Adicionar à Tela de Início). Se o ícone não carregar, teste o link direto do PNG no Safari e verifique se o GitHub Pages está publicando a branch `main` em `/ (root)`.

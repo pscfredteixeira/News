@@ -1,6 +1,6 @@
 /* NEWS offline básico; para o conteúdo novo, sempre privilegia a rede. */
-const CACHE = 'news-app-v1';
-const CORE = ['./', './index.html', './data.js', './manifest.webmanifest', './apple-touch-icon.png', './icon.svg'];
+const CACHE = 'news-app-v2';
+const CORE = ['./', './index.html', './data.js', './manifest.webmanifest', './news-touch-20261016.png', './icon.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
 });
