@@ -4,16 +4,16 @@ Jornal digital responsivo com **50 notícias do Brasil e do mundo**, publicado n
 
 ## Edição publicada
 
-**16 de outubro de 2026** — 50 notícias reunidas em dez editorias: Brasil, Mundo, Política, Economia, Tecnologia, Saúde, Ciência, Esportes, Cultura e Televisão.
+**16 de outubro de 2026, curadoria às 20h46 (Brasília)** — 50 reportagens publicadas em 16 de outubro e selecionadas para a janela das últimas 24 horas. A edição cobre política, Brasil, mundo, economia, tecnologia, saúde, ciência, cultura, televisão, esportes e meio ambiente.
 
 As notícias foram selecionadas de fontes identificadas, incluindo Agência Brasil, Reuters, Associated Press, Folha, UOL e The Guardian. Incluem fatos publicados entre 10 e 16 de outubro, com predominância de notícias de 15 e 16 de outubro, por relevância e contexto.
 
-**Os textos do NEWS são sínteses autorais editoriais, e não reproduções integrais dos veículos de origem.** Cada notícia oferece link direto para a fonte consultada, a data dessa publicação e um resumo contextualizado. Imagens de banco de imagens são **meramente ilustrativas**, sem representar os eventos noticiados.
+**Os textos do NEWS são sínteses originais, não reproduções integrais dos veículos consultados.** Cada notícia inclui fonte, data e URL direta. Nesta edição, **14 pautas contêm fotografias de arquivo ou de reportagem com crédito de produção da Agência Brasil**, usadas como registro ou contexto e identificadas em legenda. Nas outras **36 pautas, o NEWS apresenta arte editorial tipográfica específica para o tema**, em vez de fotos genéricas ou fotografias protegidas de terceiros. Fotos contextuais são descritas como tal, sem insinuar que registram o fato do dia. URLs de imagens podem deixar de funcionar quando a origem alterar a disponibilidade; o leitor mostra alternativa gráfica em caso de erro.
 
 ## Estrutura da aplicação
 
 - `index.html`: capa editorial, CSS responsivo, filtros por editoria, busca, leitor e modo noturno.
-- `data.js`: edição vigente com 50 títulos, resumos, textos editoriais originais, data de origem, fonte e URL.
+- `data.js`: edição vigente com 50 títulos, resumos, textos editoriais originais, fonte e URL, data da reportagem e metadados de imagens e seus créditos.
 - `README.md`: documentação e procedimento editorial.
 
 A aplicação suporta textos de leitura em tela inteira, aumento e redução da fonte, barra de progresso e matérias favoritas guardadas localmente no dispositivo.
@@ -34,7 +34,7 @@ Procedimento editorial:
 1. Consultar fontes recentes e confiáveis, confirmar datas e notícias.
 2. Priorizar relevância e diversidade de assuntos, separar acontecimentos de opinião, evitar duplicidades.
 3. Redigir textos originais de contextualização, com atribuição e links às reportagens originais.
-4. Preferir fotografias com licença compatível ou imagens de ambientação claramente identificadas como ilustrativas.
+4. Preferir fotografias diretamente relacionadas à matéria com licença de reutilização compatível, indicação de crédito e legenda honesta; quando a permissão não estiver estabelecida, mostrar arte editorial original, nunca incorporar indiscriminadamente a foto da reportagem.
 5. Atualizar apenas o arquivo de dados; preservar o layout e as funcionalidades.
 6. Conferir as 50 notícias, metadados e sintaxe antes do commit.
 
