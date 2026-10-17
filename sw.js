@@ -1,6 +1,6 @@
 /* NEWS PWA v3 — prioriza dados atualizados e preserva leitura offline. */
-const CACHE='news-app-v5-music2';
-const CORE=['./','./index.html','./data.js?v=music2','./manifest.webmanifest','./news-touch-20261016.png','./icon.svg'];
+const CACHE='news-app-v6-json';
+const CORE=['./','./index.html','./data.js?v=music2','./noticias.json','./manifest.webmanifest','./news-touch-20261016.png','./icon.svg'];
 self.addEventListener('install', event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
 });
