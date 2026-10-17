@@ -222,7 +222,7 @@
   </div>
   <main class="container">
     <section class="edition">
-      <div><div class="eyebrow"><span class="red-dot"></span> EDIÇÃO ATUALIZADA</div><h2>A capa de hoje <span id="edition-subtitle" style="font-family:Georgia;font-style:italic;font-weight:400">— sexta-feira, 16 de outubro</span></h2></div>
+      <div><div class="eyebrow"><span class="red-dot"></span> EDIÇÃO ATUALIZADA</div><h2>A edição atual <span id="edition-subtitle" style="font-family:Georgia;font-style:italic;font-weight:400">— sexta-feira, 16 de outubro</span></h2></div>
       <div class="edition-right micro">50 NOTÍCIAS DA EDIÇÃO <br> COM FONTES E CRÉDITOS</div>
     </section>
     <section class="lead-grid" aria-label="Manchetes da edição">
@@ -277,7 +277,7 @@
     </div>
     <div id="reader-body"></div>
   </dialog>
-  <script src="data.js?v=music1"></script>
+  <script src="data.js?v=music2"></script>
   <script>
   (() => {
     'use strict';
@@ -414,12 +414,12 @@
     $('how-button').addEventListener('click',()=>alert('Nas próximas edições, basta pedir ao ChatGPT: “Atualize o NEWS com as 50 notícias mais importantes de hoje”. O conteúdo publicado no GitHub será substituído por uma nova edição, com textos próprios, fontes e links. O site não se atualiza sozinho.'));
     try{if(localStorage.getItem('news-theme')==='dark')document.body.classList.add('dark');}catch(_){}
     if(!source.demo){
-      const firstDate=(source.articles?.[0]?.date||'').match(/^\d{4}-\d{2}-\d{2}$/)?.[0];
+      const firstDate='2026-10-17';
       const dt=firstDate ? new Date(firstDate+'T12:00:00Z') : null;
       const readable=dt ? new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'}).format(dt) : source.date;
       $('edition-date').textContent=String(source.date||'EDIÇÃO ATUAL').toUpperCase();
       $('edition-subtitle').textContent='— '+readable;
-      $('edition-announce').textContent='EDIÇÃO '+(dt?new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'}).format(dt):source.date)+' · ÚLTIMAS 24 HORAS · '+items.length+' NOTÍCIAS';
+      $('edition-announce').textContent='EDIÇÃO '+(dt?new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'}).format(dt):source.date)+' · ATUALIZAÇÃO PARCIAL · '+items.length+' NOTÍCIAS';
       $('footer-edition').textContent=source.publishedLabel||source.date||'Edição atual';
       document.title='NEWS — '+(source.date||'Edição atual');
     }
@@ -431,7 +431,7 @@
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js?v=photos3',{updateViaCache:'none'}).catch(() => {});
+      navigator.serviceWorker.register('./sw.js?v=music2',{updateViaCache:'none'}).catch(() => {});
     });
   }
   </script>
