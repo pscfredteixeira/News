@@ -279,8 +279,15 @@
   </dialog>
   <script src="data.js?v=music2"></script>
   <script>
-  (() => {
+    window.NEWS_JSON_READY = fetch("./noticias.json?ts="+Date.now(), {cache:"no-store"})
+      .then(r => { if (!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+      .then(data => { if (!data || !Array.isArray(data.articles) || data.articles.length !== 50 || data.articles.some(a => !a.id || !a.title || !a.category || !a.sourceUrl || !a.date || !Array.isArray(a.body))) throw new Error("Edição JSON inválida"); window.NEWS_DATA = data; return true; })
+      .catch(error => { console.warn("NEWS: usando edição de reserva", error); return false; });
+  </script>
+  <script>
+  (async () => {
     'use strict';
+    await window.NEWS_JSON_READY;
     const source = window.NEWS_DATA || {edition:'Edição zero',demo:true,articles:[]};
     const items = Array.isArray(source.articles) ? source.articles : [];
     const categories = [...new Set(items.map(a=>a.category))];
@@ -431,7 +438,7 @@
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js?v=music2',{updateViaCache:'none'}).catch(() => {});
+      navigator.serviceWorker.register('./sw.js?v=json1',{updateViaCache:'none'}).catch(() => {});
     });
   }
   </script>
