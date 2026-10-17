@@ -75,3 +75,9 @@ A partir da versão `photos3`, o aplicativo tem uma foto associada a cada notíc
 ## Diretriz editorial válida a partir de 17/10/2026
 
 **Substituir a editoria Esportes por Música.** A editoria Música será permanente nas próximas edições e deve cobrir lançamentos de discos e singles, artistas brasileiros e internacionais, shows, turnês, festivais, bastidores e indústria musical. Não reservar vagas para Esportes nas 50 pautas, salvo pedido explícito do usuário. Manter o total de 50 matérias, os links das fontes, fotos com direitos compatíveis e o design responsivo. **Atualizações completas de notícias continuam somente sob pedido**, sem coleta automática diária. A edição de 16/10/2026 pode permanecer intacta até a mudança programada para 17/10/2026.
+
+## Arquitetura JSON (17/10/2026)
+
+O arquivo `noticias.json` é a fonte principal da edição: contém metadados e exatamente 50 objetos `articles`, no mesmo esquema anterior de `window.NEWS_DATA`. O `index.html` carrega o JSON com `fetch` sem cache, verifica a quantidade e campos essenciais e somente então renderiza o jornal. Se o JSON falhar, `data.js` permanece como cópia de segurança para uso offline. O service worker inclui `noticias.json` no cache offline, priorizando a rede.
+
+**Atualização editorial:** pesquisar e verificar as 50 pautas; editar somente `noticias.json`, conservando os IDs, fontes, datas, links, créditos e categorias; validar JSON e 50 artigos antes do commit. O site não busca notícias automaticamente: a publicação continua exclusivamente sob pedido. Para restaurar a edição de reserva, atualizar também `data.js` após uma edição completa validada. Evitar datas de edição enganosas quando houver notícias antigas.
