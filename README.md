@@ -8,7 +8,7 @@ Jornal digital responsivo com **50 notícias do Brasil e do mundo**, publicado n
 
 As notícias foram selecionadas de fontes identificadas, incluindo Agência Brasil, Reuters, Associated Press, Folha, UOL e The Guardian. Incluem fatos publicados entre 10 e 16 de outubro, com predominância de notícias de 15 e 16 de outubro, por relevância e contexto.
 
-**Os textos do NEWS são sínteses originais, não reproduções integrais dos veículos consultados.** Cada notícia inclui fonte, data e URL direta. Nesta edição, **14 pautas contêm fotografias de arquivo ou de reportagem com crédito de produção da Agência Brasil**, usadas como registro ou contexto e identificadas em legenda. Nas outras **36 pautas, o NEWS apresenta arte editorial tipográfica específica para o tema**, em vez de fotos genéricas ou fotografias protegidas de terceiros. Fotos contextuais são descritas como tal, sem insinuar que registram o fato do dia. URLs de imagens podem deixar de funcionar quando a origem alterar a disponibilidade; o leitor mostra alternativa gráfica em caso de erro.
+**Os textos do NEWS são sínteses originais, não reproduções integrais dos veículos consultados.** Cada notícia inclui fonte, data e URL direta. Nesta edição, **todas as 50 matérias têm uma fotografia associada**. Para 14 pautas, há endereço de fotografia creditada à Agência Brasil, na própria reportagem ou em arquivo relacionado. Para as demais 36, há fotografias temáticas do Unsplash identificadas como **ilustrativas**, pois não é permitido copiar indiscriminadamente as imagens de veículos privados. Se o servidor da Agência Brasil bloquear o carregamento, o site substitui automaticamente a foto por outra imagem ilustrativa identificada. Caso a segunda imagem falhe, mostra uma alternativa gráfica. Fotografias ilustrativas nunca devem ser apresentadas como registro do fato relatado.
 
 ## Estrutura da aplicação
 
@@ -67,3 +67,7 @@ Não reproduzir na íntegra textos jornalísticos ou fotografias protegidos por 
 ## Ícone no iPhone (16/10/2026)
 
 Para contornar ícones antigos armazenados pelo Safari, a página usa um `apple-touch-icon` de 180×180 pixels com endereço versionado `news-touch-20261016.png`. A configuração PWA foi revisada. Remova o atalho antigo e adicione novamente pelo Safari (Compartilhar → Adicionar à Tela de Início). Se o ícone não carregar, teste o link direto do PNG no Safari e verifique se o GitHub Pages está publicando a branch `main` em `/ (root)`.
+
+## Correção de fotos no iPhone
+
+A partir da versão `photos3`, o aplicativo tem uma foto associada a cada notícia. As imagens são externas (origem e direitos preservados). O JavaScript tenta uma foto alternativa quando o servidor da fonte não carrega; os créditos acompanham a imagem exibida. O service worker da PWA passou para `news-app-v3-photos`, com buscas de arquivos locais que priorizam a rede e um cache offline apenas como reserva. Caso um ícone do iPhone exiba a versão antiga, feche e reabra o app; se necessário, remova o atalho e adicione-o novamente no Safari.
