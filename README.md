@@ -71,3 +71,7 @@ Para contornar ícones antigos armazenados pelo Safari, a página usa um `apple-
 ## Correção de fotos no iPhone
 
 A partir da versão `photos3`, o aplicativo tem uma foto associada a cada notícia. As imagens são externas (origem e direitos preservados). O JavaScript tenta uma foto alternativa quando o servidor da fonte não carrega; os créditos acompanham a imagem exibida. O service worker da PWA passou para `news-app-v3-photos`, com buscas de arquivos locais que priorizam a rede e um cache offline apenas como reserva. Caso um ícone do iPhone exiba a versão antiga, feche e reabra o app; se necessário, remova o atalho e adicione-o novamente no Safari.
+
+## Diretriz editorial válida a partir de 17/10/2026
+
+**Substituir a editoria Esportes por Música.** A editoria Música será permanente nas próximas edições e deve cobrir lançamentos de discos e singles, artistas brasileiros e internacionais, shows, turnês, festivais, bastidores e indústria musical. Não reservar vagas para Esportes nas 50 pautas, salvo pedido explícito do usuário. Manter o total de 50 matérias, os links das fontes, fotos com direitos compatíveis e o design responsivo. **Atualizações completas de notícias continuam somente sob pedido**, sem coleta automática diária. A edição de 16/10/2026 pode permanecer intacta até a mudança programada para 17/10/2026.
