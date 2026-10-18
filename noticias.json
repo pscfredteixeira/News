@@ -1206,8 +1206,6 @@
       "fallbackCaption": "Imagem de apoio, não representa o acontecimento."
     }
   ],
-  "windowStart": "2026-10-15T20:46:00-03:00",
-  "windowEnd": "2026-10-16T20:46:00-03:00",
-  "photoPolicy": "Quando houver foto da reportagem licenciada ou contextual, ela é exibida com crédito. Caso falhe, o navegador usa uma fotografia ilustrativa; as demais pautas já mostram fotos ilustrativas do Unsplash, sempre identificadas.",
+  "photoPolicy": "As 50 matérias têm imagens temáticas do Unsplash identificadas como ilustrativas, não fotografias dos acontecimentos. Não republicamos imagens jornalísticas sem licença verificada.",
   "editorialNote": "Curadoria de domingo com datas originais preservadas. Links apontam para reportagens específicas; as imagens são ilustrativas e não reproduzem fotos protegidas dos veículos."
 }
