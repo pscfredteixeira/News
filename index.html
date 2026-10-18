@@ -13,10 +13,10 @@
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
   <link rel="manifest" href="./manifest.webmanifest?v=2">
-  <meta name="description" content="NEWS — Um jornal para ler devagar. 50 notícias com textos editoriais originais e links para fontes jornalísticas.">
+  <meta name="description" content="NEWS 18/10/2026: 50 reportagens de Brasil e mundo, com fonte identificada, imagens ilustrativas e nova editoria Música.">
   <meta property="og:title" content="NEWS — O jornal do seu dia">
   <meta property="og:description" content="Uma experiência editorial em formato de jornal, para acompanhar Brasil e mundo.">
-  <title>NEWS — 16 de outubro de 2026</title>
+  <title>NEWS — 18 de outubro de 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Franklin:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -197,11 +197,11 @@
   </style>
 </head>
 <body>
-  <div class="announce" id="edition-announce">EDIÇÃO DE 16/10/2026 · MÚSICA ATUALIZADA EM 17/10 · 50 NOTÍCIAS</div>
+  <div class="announce" id="edition-announce">EDIÇÃO DE DOMINGO · 18/10/2026 · 50 NOTÍCIAS · MÚSICA</div>
   <header class="container" id="topo">
     <div class="topline">
       <div class="top-left micro"><span class="red-dot"></span> INDEPENDENTE <span class="desktop-only"> &nbsp; / &nbsp; PARA LER COM CALMA</span></div>
-      <div class="top-center micro" id="edition-date">16 DE OUTUBRO DE 2026</div>
+      <div class="top-center micro" id="edition-date">18 DE OUTUBRO DE 2026</div>
       <div class="top-actions">
         <button class="icon-button" id="theme-button" type="button" aria-label="Alternar tema claro e escuro" title="Modo noturno">
           <svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20.9 13.1A9 9 0 0 1 10.9 3.1 9 9 0 1 0 20.9 13.1Z"/></svg>
@@ -222,7 +222,7 @@
   </div>
   <main class="container">
     <section class="edition">
-      <div><div class="eyebrow"><span class="red-dot"></span> EDIÇÃO ATUALIZADA</div><h2>A edição atual <span id="edition-subtitle" style="font-family:Georgia;font-style:italic;font-weight:400">— sexta-feira, 16 de outubro</span></h2></div>
+      <div><div class="eyebrow"><span class="red-dot"></span> EDIÇÃO ATUALIZADA</div><h2>A edição atual <span id="edition-subtitle" style="font-family:Georgia;font-style:italic;font-weight:400">— domingo, 18 de outubro</span></h2></div>
       <div class="edition-right micro">50 NOTÍCIAS DA EDIÇÃO <br> COM FONTES E CRÉDITOS</div>
     </section>
     <section class="lead-grid" aria-label="Manchetes da edição">
@@ -261,7 +261,7 @@
   </main>
   <footer class="footer container">
     <div><strong>NEWS.</strong><br>O jornal do seu dia.</div>
-    <div><span id="footer-edition">Edição atualizada em 16/10/2026, 20h46 (Brasília).</span><br>Fotografias nas 50 notícias: imagens de reportagem creditadas quando permitidas; demais fotos são ilustrativas.</div>
+    <div><span id="footer-edition">Edição de 18/10/2026 · Reportagens de 17 e 18 de outubro.</span><br>Fotografias nas 50 notícias: imagens de reportagem creditadas quando permitidas; demais fotos são ilustrativas.</div>
     <div class="micro">UM JORNAL PARA LER DEVAGAR.</div>
   </footer>
   <dialog id="reader" aria-label="Leitura da matéria">
@@ -277,7 +277,7 @@
     </div>
     <div id="reader-body"></div>
   </dialog>
-  <script src="data.js?v=music2"></script>
+  <script src="data.js?v=oct18"></script>
   <script>
     window.NEWS_JSON_READY = fetch("./noticias.json?ts="+Date.now(), {cache:"no-store"})
       .then(r => { if (!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
