@@ -261,7 +261,7 @@
   </main>
   <footer class="footer container">
     <div><strong>NEWS.</strong><br>O jornal do seu dia.</div>
-    <div><span id="footer-edition">Edição de 18/10/2026 · Reportagens de 17 e 18 de outubro.</span><br>Fotografias nas 50 notícias: imagens de reportagem creditadas quando permitidas; demais fotos são ilustrativas.</div>
+    <div><span id="footer-edition">Edição de 18/10/2026 · Reportagens de 17 e 18 de outubro.</span><br>As 50 matérias têm fotografias temáticas ilustrativas; não são imagens dos acontecimentos.</div>
     <div class="micro">UM JORNAL PARA LER DEVAGAR.</div>
   </footer>
   <dialog id="reader" aria-label="Leitura da matéria">
@@ -426,7 +426,7 @@
       const readable=dt ? new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'}).format(dt) : source.date;
       $('edition-date').textContent=String(source.date||'EDIÇÃO ATUAL').toUpperCase();
       $('edition-subtitle').textContent='— '+readable;
-      $('edition-announce').textContent='EDIÇÃO '+(dt?new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'}).format(dt):source.date)+' · ATUALIZAÇÃO PARCIAL · '+items.length+' NOTÍCIAS';
+      $('edition-announce').textContent='EDIÇÃO '+(dt?new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'}).format(dt):source.date)+' · 50 REPORTAGENS · '+items.length+' NOTÍCIAS';
       $('footer-edition').textContent=source.publishedLabel||source.date||'Edição atual';
       document.title='NEWS — '+(source.date||'Edição atual');
     }
@@ -438,7 +438,7 @@
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js?v=json1',{updateViaCache:'none'}).catch(() => {});
+      navigator.serviceWorker.register('./sw.js?v=20261018',{updateViaCache:'none'}).catch(() => {});
     });
   }
   </script>
