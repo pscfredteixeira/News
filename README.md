@@ -4,11 +4,13 @@ Jornal digital responsivo com **50 notícias do Brasil e do mundo**, publicado n
 
 ## Edição publicada
 
-**16 de outubro de 2026, curadoria às 20h46 (Brasília)** — 50 reportagens publicadas em 16 de outubro e selecionadas para a janela das últimas 24 horas. A edição cobre política, Brasil, mundo, economia, tecnologia, saúde, ciência, cultura, televisão, esportes e meio ambiente.
+**Domingo, 18 de outubro de 2026 — 50 matérias originais de síntese editorial.** Foram selecionadas 34 fontes publicadas em 18/10 e 16 fontes publicadas em 17/10. Todas as matérias têm título, resumo, fonte individual, data original, URL para a reportagem e imagem temática marcada como ilustrativa.
 
-As notícias foram selecionadas de fontes identificadas, incluindo Agência Brasil, Reuters, Associated Press, Folha, UOL e The Guardian. Incluem fatos publicados entre 10 e 16 de outubro, com predominância de notícias de 15 e 16 de outubro, por relevância e contexto.
+A nova editoria **Música** substitui **Esportes** definitivamente. Nesta edição, são seis matérias de música, incluindo choro brasileiro, Afrobeats, Rebecca Ferguson, ópera, Beatles e Fontaines D.C.
 
-**Os textos do NEWS são sínteses originais, não reproduções integrais dos veículos consultados.** Cada notícia inclui fonte, data e URL direta. Nesta edição, **todas as 50 matérias têm uma fotografia associada**. Para 14 pautas, há endereço de fotografia creditada à Agência Brasil, na própria reportagem ou em arquivo relacionado. Para as demais 36, há fotografias temáticas do Unsplash identificadas como **ilustrativas**, pois não é permitido copiar indiscriminadamente as imagens de veículos privados. Se o servidor da Agência Brasil bloquear o carregamento, o site substitui automaticamente a foto por outra imagem ilustrativa identificada. Caso a segunda imagem falhe, mostra uma alternativa gráfica. Fotografias ilustrativas nunca devem ser apresentadas como registro do fato relatado.
+A capa e os dados são publicados sob solicitação, não com atualização automática. O arquivo noticias.json é a fonte principal e data.js a cópia offline; ambas foram sincronizadas. Fotos ilustrativas provêm de URLs do Unsplash, não devem ser tratadas como fotos reais dos acontecimentos. Quando as imagens não carregam, o leitor exibe alternativa e crédito de foto temática. A data da edição é de 18/10 e as publicações de 17/10 conservam sua própria data.
+
+A curadoria da edição buscou materiais da Agência Brasil, The Guardian e Associated Press. Não reproduzir o texto integral de reportagens de terceiros.
 
 ## Estrutura da aplicação
 
@@ -81,3 +83,7 @@ A partir da versão `photos3`, o aplicativo tem uma foto associada a cada notíc
 O arquivo `noticias.json` é a fonte principal da edição: contém metadados e exatamente 50 objetos `articles`, no mesmo esquema anterior de `window.NEWS_DATA`. O `index.html` carrega o JSON com `fetch` sem cache, verifica a quantidade e campos essenciais e somente então renderiza o jornal. Se o JSON falhar, `data.js` permanece como cópia de segurança para uso offline. O service worker inclui `noticias.json` no cache offline, priorizando a rede.
 
 **Atualização editorial:** pesquisar e verificar as 50 pautas; editar somente `noticias.json`, conservando os IDs, fontes, datas, links, créditos e categorias; validar JSON e 50 artigos antes do commit. O site não busca notícias automaticamente: a publicação continua exclusivamente sob pedido. Para restaurar a edição de reserva, atualizar também `data.js` após uma edição completa validada. Evitar datas de edição enganosas quando houver notícias antigas.
+
+## Publicação de 18/10/2026
+
+Mudanças: 50 notícias substituídas, 50 URLs específicas, 34 publicações datadas de 18/10 e 16 de 17/10, seis pautas de Música e nenhuma de Esportes. Atualizados noticias.json, data.js, capa HTML, metadados e service worker news-app-v7-20261018. Se o aplicativo no iPhone exibir edição antiga, reinicie o atalho e confira o JSON diretamente pelo navegador. O cache prioriza acesso à rede com cópia offline.
